@@ -11,5 +11,7 @@ Dir.glob("#{lib_root}/days/*") { |f| require f }
 module Days
   extend T::Sig
 
-  IMPLEMENTED_DAYS = T.let({}.freeze, T::Hash[Integer, T.class_of(Day)])
+  IMPLEMENTED_DAYS = T.let({
+    1 => Day01
+  }.freeze, T::Hash[Integer, T.class_of(Day)])
 end
