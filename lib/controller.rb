@@ -33,7 +33,7 @@ class Controller
   sig { void }
   def solve_and_print
     day_solver = T.must(Days::IMPLEMENTED_DAYS[@day]).new
-    day_solver.read_file(Utils::FilenameUtils.input_fn(@day))
+    day_solver.read_file("#{Utils::FilenameUtils::INPUTS_DIR}/#{Utils::FilenameUtils.input_fn(@day)}")
     puts "Day #{@day}"
     solve_and_print_a(day_solver)
     solve_and_print_b(day_solver)
