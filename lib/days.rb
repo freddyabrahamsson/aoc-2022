@@ -3,6 +3,7 @@
 
 require 'sorbet-runtime'
 
+# Require all files in the './days' folder
 lib_root = File.dirname(__FILE__)
 Dir.glob("#{lib_root}/days/*") { |f| require f }
 
@@ -11,6 +12,8 @@ Dir.glob("#{lib_root}/days/*") { |f| require f }
 module Days
   extend T::Sig
 
+  ##
+  # Mapping between day numbers and the class implementing solutions for that day.
   IMPLEMENTED_DAYS = T.let({
     1 => Day01,
     2 => Day02
