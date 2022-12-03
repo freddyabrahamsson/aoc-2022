@@ -16,6 +16,7 @@ module Days
   # Mapping between day numbers and the class implementing solutions for that day.
   IMPLEMENTED_DAYS = T.let({
     1 => Day01,
-    2 => Day02
+    2 => Day02,
+    3 => Day03
   }.freeze, T::Hash[Integer, T.class_of(Day)])
 end
