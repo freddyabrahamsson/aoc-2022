@@ -3,6 +3,8 @@
 
 require_relative 'utils/filename_utils'
 
+##
+# Various utilities
 module Utils
   extend T::Sig
 end
