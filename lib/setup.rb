@@ -1,15 +1,17 @@
 # typed: strict
 # frozen_string_literal: true
 
+require 'fileutils'
+
 require_relative 'utils'
 
 ##
-# Utilities to setup
+# Utilities to prepare solutions.
 module Setup
   extend T::Sig
 
-  FN = Utils::FilenameUtils
-  NUMBER_RE = /XX/
+  FN = Utils::FilenameUtils # Define shorter names to save some space.
+  NUMBER_RE = /XX/ # Pattern used in templates to mark where the date goes.
 
   sig { params(day: Integer).void }
   ##
@@ -28,21 +30,29 @@ module Setup
     touch_test_input(day)
   end
 
-  sig { params(day_num: Integer).returns(File) }
+  sig { params(day_num: Integer).void }
+  ##
+  # Touches the file for test inputs for a given day.
+  #
+  # @param day_num day to touch test input for
   def self.touch_test_input(day_num)
-    File.open("#{FN::SPEC_INPUTS_DIR}/#{FN.input_fn(day_num)}", 'w') { |f| f << '' }
+    FileUtils.touch("#{FN::SPEC_INPUTS_DIR}/#{FN.input_fn(day_num)}")
   end
 
   sig { params(day_num: Integer).void }
+  ##
+  # Touches the file for real inputs for a given day.
+  #
+  # @param day_num day to touch test input for
   def self.touch_input(day_num)
-    File.open("#{FN::INPUTS_DIR}/#{FN.input_fn(day_num)}", 'w') { |f| f << '' }
+    FileUtils.touch("#{FN::INPUTS_DIR}/#{FN.input_fn(day_num)}")
   end
 
   sig { params(day_num: Integer).void }
   ##
   # Copy the template for the rspec test for a day and update the file content to the correct day number.
   #
-  # @param day_num TODO
+  # @param day_num day to copyt template for
   def self.setup_day_spec(day_num)
     day_num_pp = FN.day_str(day_num)
     new_spec_fn = "#{FN::SPEC_DIR}/#{FN.spec_fn(day_num)}"
@@ -54,7 +64,7 @@ module Setup
   ##
   # Copy the template for the solution to a day and update the file content to the correct day number.
   #
-  # @param day number of the day to initialise.
+  # @param day_num number of the day to initialise.
   def self.setup_day_solver(day_num)
     day_num_pp = FN.day_str(day_num)
     new_day_fn = "#{FN::SOLVER_DIR}/#{FN.solver_fn(day_num)}"
@@ -63,6 +73,13 @@ module Setup
   end
 
   sig { params(source_fn: String, target_fn: String, reg: Regexp, ins: String).void }
+  ##
+  # Copy a template and change the file content by replacing a given pattern.
+  #
+  # @param source_fn template file
+  # @param target_fn target file
+  # @param reg pattern to replace
+  # @param ins string to insert as replacement
   def self.copy_template(source_fn, target_fn, reg, ins)
     new_spec_content = File.read(source_fn)
     new_spec_content = new_spec_content.gsub(reg, ins)
