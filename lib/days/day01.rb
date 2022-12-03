@@ -8,6 +8,10 @@ module Days
   # Day 01
   class Day01 < Day
     sig { returns(T.any(String, Integer)) }
+    ##
+    # Solution to part a of day 01.
+    #
+    # @return the answer to part a, day 01.
     def part_a
       cals_carried = 0
       max_cals = 0
@@ -24,6 +28,10 @@ module Days
     end
 
     sig { returns(T.any(String, Integer)) }
+    ##
+    # Solution to part b of day 01.
+    #
+    # @return the answer to part b, day 01.
     def part_b
       top_three = Array.new(3, 0)
       cals_carried = 0
@@ -40,6 +48,13 @@ module Days
     end
 
     sig { params(val: Integer, arr: T::Array[Integer]).void }
+    ##
+    # Insert the given number into the sorted array if it is bigger than the smallest number currently in the array.
+    #
+    # Sort the array again.
+    #
+    # @param val number to maybe insert
+    # @param arr array to insert into.
     def maybe_insert(val, arr)
       return unless val > T.must(arr[0])
 
