@@ -12,6 +12,7 @@ module Days
   extend T::Sig
 
   IMPLEMENTED_DAYS = T.let({
-    1 => Day01
+    1 => Day01,
+    2 => Day02
   }.freeze, T::Hash[Integer, T.class_of(Day)])
 end
