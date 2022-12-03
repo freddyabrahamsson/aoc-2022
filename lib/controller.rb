@@ -10,7 +10,7 @@ require_relative 'setup'
 class Controller
   extend T::Sig
 
-  COMMANDS = T.let(%i[solve setup test].freeze, T::Array[Symbol])
+  COMMANDS = T.let(%i[solve setup].freeze, T::Array[Symbol]) # Implemented commands
 
   sig { params(day: Integer, command: String).void }
   def initialize(day, command)
@@ -19,6 +19,8 @@ class Controller
   end
 
   sig { void }
+  ##
+  # Run the controller.
   def run
     case @command
     when :solve
@@ -31,6 +33,8 @@ class Controller
   private
 
   sig { void }
+  ##
+  # Solve both parts of the day and print the results.
   def solve_and_print
     day_solver = T.must(Days::IMPLEMENTED_DAYS[@day]).new
     day_solver.read_file("#{Utils::FilenameUtils::INPUTS_DIR}/#{Utils::FilenameUtils.input_fn(@day)}")
@@ -41,14 +45,22 @@ class Controller
     puts "Day #{@day} is not yet implemented."
   end
 
-  sig { params(day_solver: Days::Day).returns(NilClass) }
+  sig { params(day_solver: Days::Day).void }
+  ##
+  # Solve part a and print the results
+  #
+  # @param day_solver instance of the solver for the given day.
   def solve_and_print_a(day_solver)
     puts "Part A: #{day_solver.part_a}"
   rescue NotImplementedError
     puts 'Part A is not implemented'
   end
 
-  sig { params(day_solver: Days::Day).returns(NilClass) }
+  sig { params(day_solver: Days::Day).void }
+  ##
+  # Solve part b and print the results.
+  #
+  # @param day_solver instance of the solver for the given day.
   def solve_and_print_b(day_solver)
     puts "Part B: #{day_solver.part_b}"
   rescue NotImplementedError
