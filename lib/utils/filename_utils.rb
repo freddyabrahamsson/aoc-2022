@@ -18,11 +18,17 @@ module Utils
 
     sig { params(day: Integer).returns(String) }
     def self.day_str(day)
-      if day.between?(0, 9)
-        "0#{day}"
-      else
-        day.to_s
-      end
+      zero_padded_num(day, 2)
+    end
+
+    sig { params(num: Integer, target_length: Integer).returns(String) }
+    def self.zero_padded_num(num, target_length)
+      num_str = num.to_s
+      initial_length = num_str.length
+      raise ArgumentError, "#{num} has more than #{target_length} digits" if initial_length > target_length
+
+      n_zeros = target_length - initial_length
+      '0' * n_zeros + num_str
     end
 
     sig { params(day: Integer).returns(String) }
