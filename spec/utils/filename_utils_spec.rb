@@ -1,6 +1,8 @@
 # typed: false
 # frozen_string_literal: true
 
+require_relative '../../lib/utils/filename_utils'
+
 describe Utils::FilenameUtils do
   context 'when producing dates for filenames' do
     it 'always produces strings of length 2' do
