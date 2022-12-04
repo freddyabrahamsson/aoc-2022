@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require 'tty-logger'
 require 'tty-prompt'
 
 require_relative 'utils'
@@ -13,6 +14,7 @@ module Setup
 
   FN = Utils::FilenameUtils # Define shorter names to save some space.
   NUMBER_RE = /XX/ # Pattern used in templates to mark where the date goes.
+  LOGGER = T.let(TTY::Logger.new, TTY::Logger)
 
   sig { params(day: Integer).void }
   ##
@@ -38,7 +40,10 @@ module Setup
   # @param day_num day to touch test input for
   def self.touch_test_input(day_num)
     filename = "#{FN::SPEC_INPUTS_DIR}/#{FN.input_fn(day_num)}"
-    FileUtils.touch(filename) unless File.exist?(filename)
+    return if File.exist?(filename)
+
+    LOGGER.success("Created empty input: #{filename}")
+    FileUtils.touch(filename)
   end
 
   sig { params(day_num: Integer).void }
@@ -48,7 +53,10 @@ module Setup
   # @param day_num day to touch test input for
   def self.touch_input(day_num)
     filename = "#{FN::INPUTS_DIR}/#{FN.input_fn(day_num)}"
-    FileUtils.touch(filename) unless File.exist?(filename)
+    return if File.exist?(filename)
+
+    LOGGER.success("Created empty input: #{filename}")
+    FileUtils.touch(filename)
   end
 
   sig { params(day_num: Integer).void }
@@ -86,10 +94,15 @@ module Setup
   def self.copy_template(source_fn, target_fn, reg, ins)
     abort = false
     abort = TTY::Prompt.new.no?("#{target_fn} already exists. Do you want to overwrite?") if File.exist? target_fn
-    return if abort
 
-    new_spec_content = File.read(source_fn)
-    new_spec_content = new_spec_content.gsub(reg, ins)
-    File.open(target_fn, 'w') { |f| f << new_spec_content }
+    if abort
+      LOGGER.info "Skipping #{target_fn}"
+      nil
+    else
+      new_spec_content = File.read(source_fn)
+      new_spec_content = new_spec_content.gsub(reg, ins)
+      File.open(target_fn, 'w') { |f| f << new_spec_content }
+      LOGGER.success "Copied template to #{target_fn}"
+    end
   end
 end
