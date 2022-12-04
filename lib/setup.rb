@@ -14,7 +14,7 @@ module Setup
 
   FN = Utils::FilenameUtils # Define shorter names to save some space.
   NUMBER_RE = /XX/ # Pattern used in templates to mark where the date goes.
-  LOGGER = T.let(TTY::Logger.new, TTY::Logger)
+  LOGGER = T.let(TTY::Logger.new, TTY::Logger) # Default logger to output messages.
 
   sig { params(day: Integer).void }
   ##
