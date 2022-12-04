@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require 'tty-prompt'
 
 require_relative 'utils'
 
@@ -81,6 +82,10 @@ module Setup
   # @param reg pattern to replace
   # @param ins string to insert as replacement
   def self.copy_template(source_fn, target_fn, reg, ins)
+    abort = false
+    abort = TTY::Prompt.new.no?("#{target_fn} already exists. Do you want to overwrite?") if File.exist? target_fn
+    return if abort
+
     new_spec_content = File.read(source_fn)
     new_spec_content = new_spec_content.gsub(reg, ins)
     File.open(target_fn, 'w') { |f| f << new_spec_content }
