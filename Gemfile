@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 gem('rake')
 gem('sorbet-runtime')
+gem('tty-logger')
 gem('tty-prompt')
 gem('yard')
 

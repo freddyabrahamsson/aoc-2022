@@ -88,6 +88,8 @@ GEM
     thor (1.2.1)
     tty-color (0.6.0)
     tty-cursor (0.7.1)
+    tty-logger (0.6.0)
+      pastel (~> 0.8)
     tty-prompt (0.23.1)
       pastel (~> 0.8)
       tty-reader (~> 0.8)
@@ -122,6 +124,7 @@ DEPENDENCIES
   sorbet
   sorbet-runtime
   tapioca
+  tty-logger
   tty-prompt
   yard
 
