@@ -37,7 +37,8 @@ module Setup
   #
   # @param day_num day to touch test input for
   def self.touch_test_input(day_num)
-    FileUtils.touch("#{FN::SPEC_INPUTS_DIR}/#{FN.input_fn(day_num)}")
+    filename = "#{FN::SPEC_INPUTS_DIR}/#{FN.input_fn(day_num)}"
+    FileUtils.touch(filename) unless File.exist?(filename)
   end
 
   sig { params(day_num: Integer).void }
@@ -46,7 +47,8 @@ module Setup
   #
   # @param day_num day to touch test input for
   def self.touch_input(day_num)
-    FileUtils.touch("#{FN::INPUTS_DIR}/#{FN.input_fn(day_num)}")
+    filename = "#{FN::INPUTS_DIR}/#{FN.input_fn(day_num)}"
+    FileUtils.touch(filename) unless File.exist?(filename)
   end
 
   sig { params(day_num: Integer).void }
