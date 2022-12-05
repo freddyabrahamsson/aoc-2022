@@ -14,7 +14,7 @@ module Days
     # @return the answer to part a, day 03.
     def part_a
       bags = @input_lines.map { |s| Bag.new(s, 2) }
-      (bags.map { |bag| overlapping_priority(bag) }).reduce(:+)
+      (bags.map { |bag| overlapping_priority(bag) }).inject(:+)
     end
 
     sig { returns(T.any(String, Integer)) }
@@ -26,7 +26,7 @@ module Days
       raise ArgumentError, 'Can not divide into even groups of 3' unless (@input_lines.length % 3).zero?
 
       bags = @input_lines.map { |s| Bag.new(s, 2) }
-      (bags.each_slice(3).to_a.map { |group| item_prio(common(group)) }).reduce(:+)
+      (bags.each_slice(3).to_a.map { |group| item_prio(common(group)) }).inject(:+)
     end
 
     ##
@@ -55,7 +55,7 @@ module Days
       #
       # @return a single hash with the count of all items.
       def all_content
-        @compartments.reduce({}) { |content, comp| content.merge!(comp) { |_, va, vb| va + vb } }
+        @compartments.inject({}) { |content, comp| content.merge!(comp) { |_, va, vb| va + vb } }
       end
 
       sig { returns(String) }
@@ -104,9 +104,7 @@ module Days
     # @param bag bag to look thorugh
     # @return the total priority of all items found in both compartments.
     def overlapping_priority(bag)
-      prio = 0
-      bag.overlapping.each_char { |c| prio += item_prio(c) }
-      prio
+      bag.overlapping.each_char.map { |c| item_prio(c) }.inject(:+)
     end
 
     sig { params(item: String).returns(Integer) }
