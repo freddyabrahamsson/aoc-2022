@@ -10,7 +10,7 @@ gem("yard")
 
 group :development do
   gem("debug")
-  gem("rspec")
+  gem("minitest")
   gem("rubocop")
   gem("rubocop-rspec")
   gem("rubocop-sorbet")
