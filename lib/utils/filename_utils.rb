@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'sorbet-runtime'
+require "sorbet-runtime"
 
 module Utils
   ##
@@ -9,14 +9,14 @@ module Utils
   module FilenameUtils
     extend T::Sig
 
-    INPUTS_DIR = 'data/inputs' # Path to directory where the actual inputs are stored.
-    SPEC_DIR = 'spec/days' # Path to directory where the spec files for solutions are stored.
-    SPEC_INPUTS_DIR = 'data/spec' # Path to directory where the inputs for tests are stored.
-    SOLVER_DIR = 'lib/days' # Path to directory where the solutions are stored.
-    TEMPLATE_DIR = 'templates' # Path to directory where the templates for solutions and spec files are stored.
+    INPUTS_DIR = "data/inputs" # Path to directory where the actual inputs are stored.
+    SPEC_DIR = "spec/days" # Path to directory where the spec files for solutions are stored.
+    SPEC_INPUTS_DIR = "data/spec" # Path to directory where the inputs for tests are stored.
+    SOLVER_DIR = "lib/days" # Path to directory where the solutions are stored.
+    TEMPLATE_DIR = "templates" # Path to directory where the templates for solutions and spec files are stored.
 
-    SOLVER_TEMPLATE = 'day_xx.rb' # Name of the template for solutions.
-    SPEC_TEMPLATE = 'day_xx_spec.rb' # Name of the template for spec files.
+    SOLVER_TEMPLATE = "day_xx.rb" # Name of the template for solutions.
+    SPEC_TEMPLATE = "day_xx_spec.rb" # Name of the template for spec files.
 
     sig { params(day: Integer).returns(String) }
     ##
@@ -45,7 +45,7 @@ module Utils
       raise ArgumentError, "#{num} has more than #{target_length} digits" if initial_length > target_length
 
       n_zeros = target_length - initial_length
-      '0' * n_zeros + num_str
+      "0" * n_zeros + num_str
     end
 
     sig { params(day: Integer).returns(String) }

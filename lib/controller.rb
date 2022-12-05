@@ -1,9 +1,9 @@
 # typed: strict
 # frozen_string_literal:true
 
-require_relative 'days'
-require_relative 'utils'
-require_relative 'setup'
+require_relative "days"
+require_relative "utils"
+require_relative "setup"
 
 ##
 # Functions for implementing the CLI interface
@@ -53,7 +53,7 @@ class Controller
   def solve_and_print_a(day_solver)
     puts "Part A: #{day_solver.part_a}"
   rescue NotImplementedError
-    puts 'Part A is not implemented'
+    puts "Part A is not implemented"
   end
 
   sig { params(day_solver: Days::Day).void }
@@ -64,7 +64,7 @@ class Controller
   def solve_and_print_b(day_solver)
     puts "Part B: #{day_solver.part_b}"
   rescue NotImplementedError
-    puts 'Part B is not implemented'
+    puts "Part B is not implemented"
   end
 
   sig { params(input_string: String).returns(Symbol) }

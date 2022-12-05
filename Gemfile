@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem('rake')
-gem('sorbet-runtime')
-gem('tty-logger')
-gem('tty-prompt')
-gem('yard')
+gem("rake")
+gem("sorbet-runtime")
+gem("tty-logger")
+gem("tty-prompt")
+gem("yard")
 
 group :development do
-  gem('debug')
-  gem('rspec')
-  gem('rubocop')
-  gem('rubocop-rspec')
-  gem('rubocop-sorbet')
-  gem('ruby-lsp')
-  gem('sorbet')
-  gem('tapioca')
+  gem("debug")
+  gem("rspec")
+  gem("rubocop")
+  gem("rubocop-rspec")
+  gem("rubocop-sorbet")
+  gem("ruby-lsp")
+  gem("sorbet")
+  gem("tapioca")
 end

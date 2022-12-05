@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require_relative 'day'
+require_relative "day"
 
 module Days
   ##
@@ -23,7 +23,7 @@ module Days
     #
     # @return the answer to part B, day 03.
     def part_b
-      raise ArgumentError, 'Can not divide into even groups of 3' unless (@input_lines.length % 3).zero?
+      raise ArgumentError, "Can not divide into even groups of 3" unless (@input_lines.length % 3).zero?
 
       bags = @input_lines.map { |s| Bag.new(s, 2) }
       (bags.each_slice(3).to_a.map { |group| item_prio(common(group)) }).inject(:+)
@@ -64,7 +64,7 @@ module Days
       #
       # @return a string with the overlap
       def overlapping
-        overlap = ''
+        overlap = ""
         return overlap unless @compartments[0]
 
         T.must(@compartments[0]).each_key { |k| overlap += k.to_s if @compartments.all? { |c| c.key?(k) } }
@@ -94,7 +94,7 @@ module Days
     # @return an item which exists in all bags.
     def common(bags)
       T.must(bags[0]).all_content.each_key { |k| return k if bags.all? { |b| b.all_content.key? k } }
-      raise ArgumentError, 'no common item found'
+      raise ArgumentError, "no common item found"
     end
 
     sig { params(bag: Bag).returns(Integer) }
@@ -119,8 +119,8 @@ module Days
     def item_prio(item)
       raise ArgumentError unless item.length == 1
 
-      return (1 + item.ord - 'a'.ord) if ('a'..'z').include?(item)
-      return (27 + item.ord - 'A'.ord) if ('A'..'Z').include?(item)
+      return (1 + item.ord - "a".ord) if ("a".."z").include?(item)
+      return (27 + item.ord - "A".ord) if ("A".."Z").include?(item)
 
       raise ArgumentError, "#{item} is not a valid item"
     end

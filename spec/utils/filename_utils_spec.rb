@@ -1,21 +1,21 @@
 # typed: false
 # frozen_string_literal: true
 
-require_relative '../../lib/utils/filename_utils'
+require_relative "../../lib/utils/filename_utils"
 
 describe Utils::FilenameUtils do
-  context 'when producing dates for filenames' do
-    it 'always produces strings of length 2' do
+  context "when producing dates for filenames" do
+    it "always produces strings of length 2" do
       (1..31).each { |n| expect(described_class.day_str(n).length).to eq 2 }
     end
 
-    it 'produces a string which reads the same number' do
+    it "produces a string which reads the same number" do
       (1..31).each { |n| expect(described_class.day_str(n).to_i).to eq n }
     end
   end
 
-  context 'when producing zero padded strings' do
-    it 'produces a string which has the right length' do
+  context "when producing zero padded strings" do
+    it "produces a string which has the right length" do
       100.times do
         len = rand(1..10)
         num = rand(10**len)
@@ -23,7 +23,7 @@ describe Utils::FilenameUtils do
       end
     end
 
-    it 'produces a string which reads the same number' do
+    it "produces a string which reads the same number" do
       100.times do
         len = rand(1..10)
         num = rand(10**len)

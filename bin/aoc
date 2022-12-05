@@ -2,7 +2,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require_relative '../lib/controller'
+require_relative "../lib/controller"
 
 if __FILE__ == $PROGRAM_NAME
   c = Controller.new(ARGV[1].to_i, ARGV[0])

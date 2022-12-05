@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require_relative 'day'
+require_relative "day"
 
 module Days
   ##

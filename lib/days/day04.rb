@@ -1,8 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
-require_relative 'day'
+require_relative "day"
 
+# rubocop:disable Style/Documentation
 class Range
   extend T::Sig
 
@@ -16,6 +17,7 @@ class Range
     include?(other_range.begin) || include?(other_range.end) || other_range.contains_all_of(self)
   end
 end
+# rubocop:enable Style/Documentation
 
 module Days
   ##

@@ -1,11 +1,11 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'fileutils'
-require 'tty-logger'
-require 'tty-prompt'
+require "fileutils"
+require "tty-logger"
+require "tty-prompt"
 
-require_relative 'utils'
+require_relative "utils"
 
 ##
 # Utilities to prepare solutions.
@@ -101,7 +101,7 @@ module Setup
     else
       new_spec_content = File.read(source_fn)
       new_spec_content = new_spec_content.gsub(reg, ins)
-      File.open(target_fn, 'w') { |f| f << new_spec_content }
+      File.open(target_fn, "w") { |f| f << new_spec_content }
       LOGGER.success "Copied template to #{target_fn}"
     end
   end

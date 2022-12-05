@@ -6,5 +6,16 @@ AllCops:
   TargetRubyVersion: 3.1
   NewCops: disable
 
+Lint/UselessMethodDefinition:
+  Exclude:
+    - 'templates/*.rb'
+
 Metrics/MethodLength:
   Max: 15
+
+RSpec/FilePath:
+  Exclude:
+  - 'templates/*.rb'
+
+Style/StringLiterals:
+  EnforcedStyle: 'double_quotes'

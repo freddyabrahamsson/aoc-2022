@@ -1,14 +1,14 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'sorbet-runtime'
+require "sorbet-runtime"
 
 module Days
   ##
   # Base class for solution to a single day.
   #
-  # This class is only meant to be used as a base for the specific solution to a single day. The base class itself should
-  # never be initialised.
+  # This class is only meant to be used as a base for the specific solution to a single day.
+  # # The base class itself should never be initialised.
   class Day
     extend T::Sig
 

@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-require 'sorbet-runtime'
+require "sorbet-runtime"
 
 # Require all files in the './days' folder
 lib_root = File.dirname(__FILE__)
