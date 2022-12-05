@@ -3,6 +3,9 @@
 require "rake"
 require "rspec/core/rake_task"
 require "rubocop/rake_task"
+require "yard"
+
+task default: :spec
 
 RSpec::Core::RakeTask.new(:spec)
 
@@ -20,6 +23,8 @@ end
 
 RuboCop::RakeTask.new(:lint)
 
-task app_spec: %i[controller_spec utils_spec]
+YARD::Rake::YardocTask.new do |t|
+  t.stats_options = ["--list-undoc"]
+end
 
-task default: :spec
+task app_spec: %i[controller_spec utils_spec]
