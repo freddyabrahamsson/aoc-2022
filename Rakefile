@@ -28,7 +28,7 @@ RuboCop::RakeTask.new(:lint_autocorrect) do |t|
   t.options = %w[--autocorrect --disable-uncorrectable]
 end
 
-YARD::Rake::YardocTask.new do |t|
+YARD::Rake::YardocTask.new(:undoc) do |t|
   t.stats_options = ["--list-undoc"]
 end
 
