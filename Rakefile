@@ -1,24 +1,17 @@
+# typed: strict
 # frozen_string_literal: true
 
 require "rake"
-require "rspec/core/rake_task"
+require "rake/testtask"
 require "rubocop/rake_task"
 require "yard"
 
 task default: :spec
 
-RSpec::Core::RakeTask.new(:spec)
-
-RSpec::Core::RakeTask.new(:days_spec) do |t|
-  t.pattern = Dir.glob("spec/days/*.rb")
-end
-
-RSpec::Core::RakeTask.new(:controller_spec) do |t|
-  t.pattern = Dir.glob("spec/utils/controller/*.rb")
-end
-
-RSpec::Core::RakeTask.new(:utils_spec) do |t|
-  t.pattern = Dir.glob("spec/utils/*.rb")
+Rake::TestTask.new(:test) do |t|
+  t.libs << "test"
+  t.libs << "lib"
+  t.test_files = FileList["test/**/test_*.rb"]
 end
 
 RuboCop::RakeTask.new(:lint)
