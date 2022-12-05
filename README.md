@@ -1,6 +1,8 @@
 
 # Advent of Code 2022
 
+[![CI](https://github.com/freddyabrahamsson/aoc-2022/actions/workflows/ci.yml/badge.svg)](https://github.com/freddyabrahamsson/aoc-2022/actions/workflows/ci.yml)
+
 - [Advent of Code 2022](#advent-of-code-2022)
   - [Setup](#setup)
   - [Running](#running)
