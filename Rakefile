@@ -2,6 +2,7 @@
 
 require "rake"
 require "rspec/core/rake_task"
+require "rubocop/rake_task"
 
 RSpec::Core::RakeTask.new(:spec)
 
@@ -16,6 +17,8 @@ end
 RSpec::Core::RakeTask.new(:utils_spec) do |t|
   t.pattern = Dir.glob("spec/utils/*.rb")
 end
+
+RuboCop::RakeTask.new(:lint)
 
 task app_spec: %i[controller_spec utils_spec]
 
