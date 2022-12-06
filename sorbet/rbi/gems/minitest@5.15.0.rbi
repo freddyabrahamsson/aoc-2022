@@ -642,6 +642,313 @@ end
 # source://minitest//lib/minitest.rb#1020
 Minitest::BacktraceFilter::MT_RE = T.let(T.unsafe(nil), Regexp)
 
+# The spec version of Minitest::Benchmark.
+#
+# source://minitest//lib/minitest/benchmark.rb#347
+class Minitest::BenchSpec < ::Minitest::Benchmark
+  include ::Minitest::Spec::DSL::InstanceMethods
+  extend ::Minitest::Spec::DSL
+
+  class << self
+    # This is used to define a new benchmark method. You usually don't
+    # use this directly and is intended for those needing to write new
+    # performance curve fits (eg: you need a specific polynomial fit).
+    #
+    # See ::bench_performance_linear for an example of how to use this.
+    #
+    # source://minitest//lib/minitest/benchmark.rb#357
+    def bench(name, &block); end
+
+    # Create a benchmark that verifies that the performance is constant.
+    #
+    #   describe "my class Bench" do
+    #     bench_performance_constant "zoom_algorithm!" do |n|
+    #       @obj.zoom_algorithm!(n)
+    #     end
+    #   end
+    #
+    # source://minitest//lib/minitest/benchmark.rb#401
+    def bench_performance_constant(name, threshold = T.unsafe(nil), &work); end
+
+    # Create a benchmark that verifies that the performance is exponential.
+    #
+    #   describe "my class Bench" do
+    #     bench_performance_exponential "algorithm" do |n|
+    #       @obj.algorithm(n)
+    #     end
+    #   end
+    #
+    # source://minitest//lib/minitest/benchmark.rb#416
+    def bench_performance_exponential(name, threshold = T.unsafe(nil), &work); end
+
+    # Create a benchmark that verifies that the performance is linear.
+    #
+    #   describe "my class Bench" do
+    #     bench_performance_linear "fast_algorithm", 0.9999 do |n|
+    #       @obj.fast_algorithm(n)
+    #     end
+    #   end
+    #
+    # source://minitest//lib/minitest/benchmark.rb#386
+    def bench_performance_linear(name, threshold = T.unsafe(nil), &work); end
+
+    # Create a benchmark that verifies that the performance is logarithmic.
+    #
+    #   describe "my class Bench" do
+    #     bench_performance_logarithmic "algorithm" do |n|
+    #       @obj.algorithm(n)
+    #     end
+    #   end
+    #
+    # source://minitest//lib/minitest/benchmark.rb#432
+    def bench_performance_logarithmic(name, threshold = T.unsafe(nil), &work); end
+
+    # Create a benchmark that verifies that the performance is power.
+    #
+    #   describe "my class Bench" do
+    #     bench_performance_power "algorithm" do |n|
+    #       @obj.algorithm(n)
+    #     end
+    #   end
+    #
+    # source://minitest//lib/minitest/benchmark.rb#447
+    def bench_performance_power(name, threshold = T.unsafe(nil), &work); end
+
+    # Specifies the ranges used for benchmarking for that class.
+    #
+    #   bench_range do
+    #     bench_exp(2, 16, 2)
+    #   end
+    #
+    # See Minitest::Benchmark#bench_range for more details.
+    #
+    # source://minitest//lib/minitest/benchmark.rb#370
+    def bench_range(&block); end
+  end
+end
+
+# Subclass Benchmark to create your own benchmark runs. Methods
+# starting with "bench_" get executed on a per-class.
+#
+# See Minitest::Assertions
+#
+# source://minitest//lib/minitest/benchmark.rb#11
+class Minitest::Benchmark < ::Minitest::Test
+  # Runs the given +work+, gathering the times of each run. Range
+  # and times are then passed to a given +validation+ proc. Outputs
+  # the benchmark name and times in tab-separated format, making it
+  # easy to paste into a spreadsheet for graphing or further
+  # analysis.
+  #
+  # Ranges are specified by ::bench_range.
+  #
+  # Eg:
+  #
+  #   def bench_algorithm
+  #     validation = proc { |x, y| ... }
+  #     assert_performance validation do |n|
+  #       @obj.algorithm(n)
+  #     end
+  #   end
+  #
+  # source://minitest//lib/minitest/benchmark.rb#83
+  def assert_performance(validation, &work); end
+
+  # Runs the given +work+ and asserts that the times gathered fit to
+  # match a constant rate (eg, linear slope == 0) within a given
+  # +threshold+. Note: because we're testing for a slope of 0, R^2
+  # is not a good determining factor for the fit, so the threshold
+  # is applied against the slope itself. As such, you probably want
+  # to tighten it from the default.
+  #
+  # See https://www.graphpad.com/guides/prism/8/curve-fitting/reg_intepretingnonlinr2.htm
+  # for more details.
+  #
+  # Fit is calculated by #fit_linear.
+  #
+  # Ranges are specified by ::bench_range.
+  #
+  # Eg:
+  #
+  #   def bench_algorithm
+  #     assert_performance_constant 0.9999 do |n|
+  #       @obj.algorithm(n)
+  #     end
+  #   end
+  #
+  # source://minitest//lib/minitest/benchmark.rb#127
+  def assert_performance_constant(threshold = T.unsafe(nil), &work); end
+
+  # Runs the given +work+ and asserts that the times gathered fit to
+  # match a exponential curve within a given error +threshold+.
+  #
+  # Fit is calculated by #fit_exponential.
+  #
+  # Ranges are specified by ::bench_range.
+  #
+  # Eg:
+  #
+  #   def bench_algorithm
+  #     assert_performance_exponential 0.9999 do |n|
+  #       @obj.algorithm(n)
+  #     end
+  #   end
+  #
+  # source://minitest//lib/minitest/benchmark.rb#153
+  def assert_performance_exponential(threshold = T.unsafe(nil), &work); end
+
+  # Runs the given +work+ and asserts that the times gathered fit to
+  # match a straight line within a given error +threshold+.
+  #
+  # Fit is calculated by #fit_linear.
+  #
+  # Ranges are specified by ::bench_range.
+  #
+  # Eg:
+  #
+  #   def bench_algorithm
+  #     assert_performance_linear 0.9999 do |n|
+  #       @obj.algorithm(n)
+  #     end
+  #   end
+  #
+  # source://minitest//lib/minitest/benchmark.rb#193
+  def assert_performance_linear(threshold = T.unsafe(nil), &work); end
+
+  # Runs the given +work+ and asserts that the times gathered fit to
+  # match a logarithmic curve within a given error +threshold+.
+  #
+  # Fit is calculated by #fit_logarithmic.
+  #
+  # Ranges are specified by ::bench_range.
+  #
+  # Eg:
+  #
+  #   def bench_algorithm
+  #     assert_performance_logarithmic 0.9999 do |n|
+  #       @obj.algorithm(n)
+  #     end
+  #   end
+  #
+  # source://minitest//lib/minitest/benchmark.rb#173
+  def assert_performance_logarithmic(threshold = T.unsafe(nil), &work); end
+
+  # Runs the given +work+ and asserts that the times gathered curve
+  # fit to match a power curve within a given error +threshold+.
+  #
+  # Fit is calculated by #fit_power.
+  #
+  # Ranges are specified by ::bench_range.
+  #
+  # Eg:
+  #
+  #   def bench_algorithm
+  #     assert_performance_power 0.9999 do |x|
+  #       @obj.algorithm
+  #     end
+  #   end
+  #
+  # source://minitest//lib/minitest/benchmark.rb#213
+  def assert_performance_power(threshold = T.unsafe(nil), &work); end
+
+  # Takes an array of x/y pairs and calculates the general R^2 value.
+  #
+  # See: http://en.wikipedia.org/wiki/Coefficient_of_determination
+  #
+  # source://minitest//lib/minitest/benchmark.rb#222
+  def fit_error(xys); end
+
+  # To fit a functional form: y = ae^(bx).
+  #
+  # Takes x and y values and returns [a, b, r^2].
+  #
+  # See: http://mathworld.wolfram.com/LeastSquaresFittingExponential.html
+  #
+  # source://minitest//lib/minitest/benchmark.rb#237
+  def fit_exponential(xs, ys); end
+
+  # Fits the functional form: a + bx.
+  #
+  # Takes x and y values and returns [a, b, r^2].
+  #
+  # See: http://mathworld.wolfram.com/LeastSquaresFitting.html
+  #
+  # source://minitest//lib/minitest/benchmark.rb#281
+  def fit_linear(xs, ys); end
+
+  # To fit a functional form: y = a + b*ln(x).
+  #
+  # Takes x and y values and returns [a, b, r^2].
+  #
+  # See: http://mathworld.wolfram.com/LeastSquaresFittingLogarithmic.html
+  #
+  # source://minitest//lib/minitest/benchmark.rb#259
+  def fit_logarithmic(xs, ys); end
+
+  # To fit a functional form: y = ax^b.
+  #
+  # Takes x and y values and returns [a, b, r^2].
+  #
+  # See: http://mathworld.wolfram.com/LeastSquaresFittingPowerLaw.html
+  #
+  # source://minitest//lib/minitest/benchmark.rb#303
+  def fit_power(xs, ys); end
+
+  # source://minitest//lib/minitest/benchmark.rb#16
+  def io; end
+
+  # Enumerates over +enum+ mapping +block+ if given, returning the
+  # sum of the result. Eg:
+  #
+  #   sigma([1, 2, 3])                # => 1 + 2 + 3 => 6
+  #   sigma([1, 2, 3]) { |n| n ** 2 } # => 1 + 4 + 9 => 14
+  #
+  # source://minitest//lib/minitest/benchmark.rb#324
+  def sigma(enum, &block); end
+
+  # Returns a proc that calls the specified fit method and asserts
+  # that the error is within a tolerable threshold.
+  #
+  # source://minitest//lib/minitest/benchmark.rb#333
+  def validation_for_fit(msg, threshold); end
+
+  class << self
+    # Returns a set of ranges stepped exponentially from +min+ to
+    # +max+ by powers of +base+. Eg:
+    #
+    #   bench_exp(2, 16, 2) # => [2, 4, 8, 16]
+    #
+    # source://minitest//lib/minitest/benchmark.rb#35
+    def bench_exp(min, max, base = T.unsafe(nil)); end
+
+    # Returns a set of ranges stepped linearly from +min+ to +max+ by
+    # +step+. Eg:
+    #
+    #   bench_linear(20, 40, 10) # => [20, 30, 40]
+    #
+    # source://minitest//lib/minitest/benchmark.rb#48
+    def bench_linear(min, max, step = T.unsafe(nil)); end
+
+    # Specifies the ranges used for benchmarking for that class.
+    # Defaults to exponential growth from 1 to 10k by powers of 10.
+    # Override if you need different ranges for your benchmarks.
+    #
+    # See also: ::bench_exp and ::bench_linear.
+    #
+    # source://minitest//lib/minitest/benchmark.rb#61
+    def bench_range; end
+
+    # source://minitest//lib/minitest/benchmark.rb#12
+    def io; end
+
+    # source://minitest//lib/minitest/benchmark.rb#20
+    def run(reporter, options = T.unsafe(nil)); end
+
+    # source://minitest//lib/minitest/benchmark.rb#25
+    def runnable_methods; end
+  end
+end
+
 # Dispatch to multiple reporters as one.
 #
 # source://minitest//lib/minitest.rb#837

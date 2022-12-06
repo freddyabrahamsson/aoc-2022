@@ -11,6 +11,7 @@ gem("yard")
 group :development do
   gem("debug")
   gem("minitest")
+  gem("minitest-reporters")
   gem("rubocop")
   gem("rubocop-rspec")
   gem("rubocop-sorbet")
