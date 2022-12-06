@@ -32,6 +32,6 @@ jobs:
         ruby-version: "3.1"
         bundler-cache: true
     - name: Test days
-      run: bundle exec rake days_spec
+      run: bundle exec rake test_days
     - name: Test app
-      run: bundle exec rake app_spec
+      run: bundle exec rake test_app

@@ -14,6 +14,19 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList["test/**/test_*.rb"]
 end
 
+Rake::TestTask.new(:test_days) do |t|
+  t.libs << "test"
+  t.libs << "lib"
+  t.test_files = FileList["test/days/test_*.rb"]
+end
+
+Rake::TestTask.new(:test_app) do |t|
+  t.libs << "test"
+  t.libs << "lib"
+  t.test_files = FileList["test/utils/test_*.rb",
+                          "test/test_controller.rb"]
+end
+
 RuboCop::RakeTask.new(:lint)
 
 RuboCop::RakeTask.new(:lint_autocorrect) do |t|
