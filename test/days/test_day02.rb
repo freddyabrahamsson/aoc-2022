@@ -4,6 +4,8 @@
 require "test_helper"
 require_relative "../../lib/days/day02"
 
+##
+# Test class for day 02
 class TestDay02 < Minitest::Test
   extend T::Sig
 
