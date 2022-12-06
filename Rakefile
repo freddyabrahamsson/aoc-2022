@@ -6,7 +6,7 @@ require "rake/testtask"
 require "rubocop/rake_task"
 require "yard"
 
-task default: :spec
+task default: :test
 
 Rake::TestTask.new(:bench) do |t|
   t.libs << "test"
@@ -43,5 +43,3 @@ end
 YARD::Rake::YardocTask.new(:undoc) do |t|
   t.stats_options = ["--list-undoc"]
 end
-
-task app_spec: %i[controller_spec utils_spec]

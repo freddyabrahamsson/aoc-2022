@@ -10,13 +10,13 @@ module Utils
     extend T::Sig
 
     INPUTS_DIR = "data/inputs" # Path to directory where the actual inputs are stored.
-    SPEC_DIR = "spec/days" # Path to directory where the spec files for solutions are stored.
-    SPEC_INPUTS_DIR = "data/spec" # Path to directory where the inputs for tests are stored.
+    TEST_DIR = "test/days" # Path to directory where the test files for solutions are stored.
+    TEST_INPUTS_DIR = "data/test" # Path to directory where the inputs for tests are stored.
     SOLVER_DIR = "lib/days" # Path to directory where the solutions are stored.
-    TEMPLATE_DIR = "templates" # Path to directory where the templates for solutions and spec files are stored.
+    TEMPLATE_DIR = "templates" # Path to directory where the templates for solutions and test files are stored.
 
     SOLVER_TEMPLATE = "day_xx.rb" # Name of the template for solutions.
-    SPEC_TEMPLATE = "day_xx_spec.rb" # Name of the template for spec files.
+    TEST_TEMPLATE = "test_day_xx.rb" # Name of the template for test files.
 
     sig { params(day: Integer).returns(String) }
     ##
@@ -80,12 +80,12 @@ module Utils
 
     sig { params(day: Integer).returns(String) }
     ##
-    # Get the name of the spec file for a given day.
+    # Get the name of the test file for a given day.
     #
     # @param day day to get filename for
-    # @return the name of the spec file for tha given day.
-    def self.spec_fn(day)
-      "#{day_fn(day)}_spec.rb"
+    # @return the name of the test file for tha given day.
+    def self.test_fn(day)
+      "test_#{day_fn(day)}.rb"
     end
   end
 end

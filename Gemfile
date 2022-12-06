@@ -13,7 +13,6 @@ group :development do
   gem("minitest")
   gem("minitest-reporters")
   gem("rubocop")
-  gem("rubocop-rspec")
   gem("rubocop-sorbet")
   gem("ruby-lsp")
   gem("sorbet")

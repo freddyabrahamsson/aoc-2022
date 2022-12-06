@@ -21,14 +21,14 @@ module Setup
   # Set up the following files for a given day.
   #
   # - Solver
-  # - Test spec
+  # - Test file
   # - Empty input file
   # - Empty test input
   #
   # @param day number of the day to set up.
   def self.setup_day(day)
     setup_day_solver(day)
-    setup_day_spec(day)
+    setup_day_test(day)
     touch_input(day)
     touch_test_input(day)
   end
@@ -39,7 +39,7 @@ module Setup
   #
   # @param day_num day to touch test input for
   def self.touch_test_input(day_num)
-    filename = "#{FN::SPEC_INPUTS_DIR}/#{FN.input_fn(day_num)}"
+    filename = "#{FN::TEST_INPUTS_DIR}/#{FN.input_fn(day_num)}"
     return if File.exist?(filename)
 
     LOGGER.success("Created empty input: #{filename}")
@@ -61,14 +61,14 @@ module Setup
 
   sig { params(day_num: Integer).void }
   ##
-  # Copy the template for the rspec test for a day and update the file content to the correct day number.
+  # Copy the template for the Minitest for a day and update the file content to the correct day number.
   #
   # @param day_num day to copyt template for
-  def self.setup_day_spec(day_num)
+  def self.setup_day_test(day_num)
     day_num_pp = FN.day_str(day_num)
-    new_spec_fn = "#{FN::SPEC_DIR}/#{FN.spec_fn(day_num)}"
-    template_fn = "#{FN::TEMPLATE_DIR}/#{FN::SPEC_TEMPLATE}"
-    copy_template(template_fn, new_spec_fn, NUMBER_RE, day_num_pp)
+    new_test_fn = "#{FN::TEST_DIR}/#{FN.test_fn(day_num)}"
+    template_fn = "#{FN::TEMPLATE_DIR}/#{FN::TEST_TEMPLATE}"
+    copy_template(template_fn, new_test_fn, NUMBER_RE, day_num_pp)
   end
 
   sig { params(day_num: Integer).void }
@@ -99,9 +99,9 @@ module Setup
       LOGGER.info "Skipping #{target_fn}"
       nil
     else
-      new_spec_content = File.read(source_fn)
-      new_spec_content = new_spec_content.gsub(reg, ins)
-      File.open(target_fn, "w") { |f| f << new_spec_content }
+      file_content = File.read(source_fn)
+      file_content = file_content.gsub(reg, ins)
+      File.open(target_fn, "w") { |f| f << file_content }
       LOGGER.success "Copied template to #{target_fn}"
     end
   end

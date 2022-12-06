@@ -4,7 +4,6 @@
 
 # typed: false
 
-module ::RSpec; end
 module Rack::Request::Env; end
 module Rack::Request::Helpers; end
 module Rake::DSL; end
