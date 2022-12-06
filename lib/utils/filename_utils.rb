@@ -68,6 +68,17 @@ module Utils
       "#{day_fn(day)}input.txt"
     end
 
+    sig { params(day: Integer, test_no: Integer).returns(String) }
+    ##
+    # Get the name of an alternative test file if there are multiple test cases given for a single day.
+    #
+    # @param day day to test
+    # @param test_no test number
+    # @return name of the inuput file
+    def self.test_input_fn(day, test_no)
+      "#{day_fn(day)}input#{test_no}.txt"
+    end
+
     sig { params(day: Integer).returns(String) }
     ##
     # Get the name of the solution file for a given day.
