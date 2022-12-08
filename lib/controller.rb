@@ -10,7 +10,7 @@ require_relative "setup"
 class Controller
   extend T::Sig
 
-  COMMANDS = T.let(%i[solve setup].freeze, T::Array[Symbol]) # Implemented commands
+  COMMANDS = T.let(%i[solve setup test].freeze, T::Array[Symbol]) # Implemented commands
 
   sig { params(day: Integer, command: String).void }
   def initialize(day, command)
@@ -27,10 +27,24 @@ class Controller
       solve_and_print
     when :setup
       Setup.setup_day(@day)
+    when :test
+      test_day
     end
   end
 
   private
+
+  sig { void }
+  def test_day
+    day_solver = T.must(Days::IMPLEMENTED_DAYS[@day]).new
+    day_solver.read_file("#{Utils::FilenameUtils::TEST_INPUTS_DIR}/#{Utils::FilenameUtils.input_fn(@day)}")
+    puts "Day #{@day}"
+    solve_and_print_a(day_solver)
+    solve_and_print_b(day_solver)
+  rescue TypeError => e
+    puts "Day #{@day} is not yet implemented."
+    puts e
+  end
 
   sig { void }
   ##
