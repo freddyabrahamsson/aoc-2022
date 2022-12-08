@@ -8,7 +8,7 @@ module Days
   # Day 05
   class Day05 < Day
     LAYER_PATTERN = /\[\w+\]/ # Pattern for a line with a layer of crates.
-    BASE_PATTERN = /^(\s*\d+\s*)+$/ # Pattern for the stack labels.
+    BASE_PATTERN = /\d+$/x # Pattern for the stack labels.
     MOVE_PATTERN = /move (\d+) from (\d+) to (\d+)/ # Pattern for a line describing a move.
 
     ##
