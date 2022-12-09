@@ -26,4 +26,23 @@ class TestFileNameUtils < Minitest::Test
       assert_equal result.to_i, num
     end
   end
+
+  sig { void }
+  def test_solver_fn
+    (1..31).each do |n|
+      result = FN.solver_fn(n)
+      assert result.start_with? FN.day_fn(n)
+      assert_equal ".rb", File.extname(result)
+    end
+  end
+
+  sig { void }
+  def test_test_fn
+    (1..31).each do |n|
+      result = FN.test_fn(n)
+      assert result.start_with? "test"
+      assert_includes result, FN.day_fn(n)
+      assert_equal ".rb", File.extname(result)
+    end
+  end
 end
