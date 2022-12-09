@@ -48,7 +48,7 @@ module Days
       #
       # @return absolute path
       def abs_path
-        return "/" unless parent
+        return FS::ROOT_PATH unless parent
 
         "#{T.must(parent).abs_path}/#{name}".sub("//", "/")
       end
@@ -96,8 +96,8 @@ module Days
     class FS
       extend T::Sig
 
-      TOTAL_SIZE = 70_000_000
-      ROOT_PATH = "/"
+      TOTAL_SIZE = 70_000_000 # Total size of a file system
+      ROOT_PATH = "/" # Root path in a file system
 
       sig { returns(T::Hash[String, FSNode]) }
       attr_reader :nodes
