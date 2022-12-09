@@ -7,7 +7,7 @@ module Days
   ##
   # Day 03
   class Day03 < Day
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part a of day 03.
     #
@@ -17,7 +17,7 @@ module Days
       (bags.map { |bag| overlapping_priority(bag) }).inject(:+)
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part b of day 03.
     #

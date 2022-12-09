@@ -182,7 +182,7 @@ module Days
       attr_writer :current_dir
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part a of day 07.
     #
@@ -192,7 +192,7 @@ module Days
       fs.nodes.values.filter { |node| node.size <= 100_000 && node.is_a?(AoCDir) }.map(&:size).sum
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part b of day 07.
     #

@@ -23,7 +23,7 @@ module Days
     # Inverse mapping of the rules, declared as :rock == LOSES_TO[:paper]
     LOSES_TO = T.let(BEATS.invert, T::Hash[Symbol, Symbol])
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part a of day 02.
     #
@@ -40,7 +40,7 @@ module Days
       total_score
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part b of day 02.
     #

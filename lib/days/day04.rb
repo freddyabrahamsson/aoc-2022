@@ -37,7 +37,7 @@ module Days
   class Day04 < Day
     PAIR_PATTERN = /(\d+)-(\d+),(\d+)-(\d+)/ # Regex pattern to capture pairs from day 4 input.
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part a of day 04.
     #
@@ -55,7 +55,7 @@ module Days
       count
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part b of day 04.
     #

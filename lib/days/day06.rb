@@ -7,7 +7,7 @@ module Days
   ##
   # Day 06
   class Day06 < Day
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part a of day 06.
     #
@@ -16,7 +16,7 @@ module Days
       find_marker(T.must(@input_lines[0]), 4)
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part b of day 06.
     #

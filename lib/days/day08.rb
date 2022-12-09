@@ -154,7 +154,7 @@ module Days
       end
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part a of day 08.
     #
@@ -170,7 +170,7 @@ module Days
       counter
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part b of day 08.
     #

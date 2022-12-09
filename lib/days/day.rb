@@ -11,6 +11,8 @@ module Days
   # # The base class itself should never be initialised.
   class Day
     extend T::Sig
+    extend T::Helpers
+    abstract!
 
     sig { void }
     ##
@@ -35,18 +37,14 @@ module Days
       end
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { abstract.returns(T.any(String, Integer)) }
     ##
     # Get the answer for part a.
-    def part_a
-      raise NotImplementedError
-    end
+    def part_a; end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { abstract.returns(T.any(String, Integer)) }
     ##
     # Get the answer for part b.
-    def part_b
-      raise NotImplementedError
-    end
+    def part_b; end
   end
 end

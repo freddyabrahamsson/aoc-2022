@@ -26,7 +26,7 @@ module Days
       const :moves, T::Array[Move]
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part a of day 05.
     #
@@ -38,7 +38,7 @@ module Days
       setup.layout.map(&:last).join
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part b of day 05.
     #

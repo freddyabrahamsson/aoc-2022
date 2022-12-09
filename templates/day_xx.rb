@@ -7,7 +7,7 @@ module Days
   ##
   # Day XX
   class DayXX < Day
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part a of day XX.
     #
@@ -16,7 +16,7 @@ module Days
       super
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part b of day XX.
     #

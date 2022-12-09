@@ -7,7 +7,7 @@ module Days
   ##
   # Day 01
   class Day01 < Day
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part a of day 01.
     #
@@ -27,7 +27,7 @@ module Days
       max_cals
     end
 
-    sig { returns(T.any(String, Integer)) }
+    sig { override.returns(T.any(String, Integer)) }
     ##
     # Solution to part b of day 01.
     #
