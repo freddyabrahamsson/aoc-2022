@@ -33,11 +33,16 @@ Rake::TestTask.new(:test_app) do |t|
                           "test/test_controller.rb"]
 end
 
-RuboCop::RakeTask.new(:lint)
+RuboCop::RakeTask.new(:lint) do |t|
+end
 
 RuboCop::RakeTask.new(:lint_autocorrect) do |t|
   t.formatters = ["simple"]
   t.options = %w[--autocorrect --disable-uncorrectable]
+end
+
+YARD::Rake::YardocTask.new(:gen_docs) do |_t|
+  YARD::Config.load_plugin("sorbet")
 end
 
 YARD::Rake::YardocTask.new(:undoc) do |t|
