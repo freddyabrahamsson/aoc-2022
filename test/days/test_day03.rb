@@ -35,4 +35,12 @@ class TestDay03 < Minitest::Test
     assert_equal 20, d.item_prio("t")
     assert_equal 19, d.item_prio("s")
   end
+
+  sig { void }
+  def test_no_common_items
+    b1 = Days::Day03::Bag.new("abcd", 2)
+    b2 = Days::Day03::Bag.new("efgh", 2)
+
+    assert_raises(ArgumentError) { Days::Day03.new.common([b1, b2]) }
+  end
 end

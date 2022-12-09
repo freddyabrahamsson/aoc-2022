@@ -61,22 +61,32 @@ class TestDay06 < Minitest::Test
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.test_input_fn(6, 1)}")
     assert_equal 23, d.part_b
   end
+
   sig { void }
   def test_part_b2
     d = Days::Day06.new
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.test_input_fn(6, 2)}")
     assert_equal d.part_b, 23
   end
+
   sig { void }
   def test_part_b3
     d = Days::Day06.new
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.test_input_fn(6, 3)}")
     assert_equal d.part_b, 29
   end
+
   sig { void }
   def test_part_b4
     d = Days::Day06.new
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.test_input_fn(6, 4)}")
     assert_equal d.part_b, 26
+  end
+
+  sig { void }
+  def test_find_marker_invalid
+    d = Days::Day06.new
+    buffer = "ababababababababababab"
+    assert_raises(ArgumentError) { d.find_marker(buffer, 3) }
   end
 end
