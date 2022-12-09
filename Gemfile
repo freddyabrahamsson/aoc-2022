@@ -17,6 +17,7 @@ group :development do
   gem("rubocop-minitest")
   gem("rubocop-sorbet")
   gem("ruby-lsp")
+  gem("simplecov")
   gem("sorbet")
   gem("spoom")
   gem("tapioca")
