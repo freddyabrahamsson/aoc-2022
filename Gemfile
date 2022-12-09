@@ -18,5 +18,6 @@ group :development do
   gem("rubocop-sorbet")
   gem("ruby-lsp")
   gem("sorbet")
+  gem("spoom")
   gem("tapioca")
 end

@@ -119,6 +119,7 @@ DEPENDENCIES
   ruby-lsp
   sorbet
   sorbet-runtime
+  spoom
   tapioca
   tty-logger
   tty-prompt
