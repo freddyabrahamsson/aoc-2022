@@ -6,7 +6,7 @@ require "rake/testtask"
 require "rubocop/rake_task"
 require "yard"
 
-task default: :test
+require_relative("lib/aoc_rake_tasks")
 
 Rake::TestTask.new(:bench) do |t|
   t.libs << "test"
