@@ -6,5 +6,10 @@
 
 module Rack::Request::Env; end
 module Rack::Request::Helpers; end
-module Rake::DSL; end
-module Rake::FileUtilsExt; end
+module Regexp::Expression::Subexpression; end
+module RuboCop::AST::Node; end
+module RuboCop::AST::NodePattern; end
+module RuboCop::AST::NodePattern::Macros; end
+module RuboCop::AST::Sexp; end
+module RuboCop::AST::Token; end
+module RuboCop::AST::Traversal; end

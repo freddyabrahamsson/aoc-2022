@@ -7,6 +7,7 @@ gem("sorbet-runtime")
 gem("tty-logger")
 gem("tty-prompt")
 gem("yard")
+gem("yard-sorbet")
 
 group :development do
   gem("debug")

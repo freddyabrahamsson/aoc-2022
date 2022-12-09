@@ -123,6 +123,7 @@ DEPENDENCIES
   tty-logger
   tty-prompt
   yard
+  yard-sorbet
 
 BUNDLED WITH
    2.3.26

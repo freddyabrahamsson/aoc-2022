@@ -1,4 +1,5 @@
 --dir
 .
+Rakefile
 --ignore=vendor/
 --disable-watchman
