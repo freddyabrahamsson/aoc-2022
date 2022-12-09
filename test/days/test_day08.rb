@@ -13,14 +13,14 @@ class TestDay08 < Minitest::Test
 
   sig { void }
   def test_part_a
-    d = T.let(Days::Day08.new, Days::Day08)
+    d = Days::Day08.new
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('08'.to_i)}")
     assert_equal 21, d.part_a
   end
 
   sig { void }
   def test_part_b
-    d = T.let(Days::Day08.new, Days::Day08)
+    d = Days::Day08.new
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('08'.to_i)}")
     assert_equal 8, d.part_b
   end

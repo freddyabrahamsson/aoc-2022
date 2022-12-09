@@ -13,21 +13,21 @@ class TestDay03 < Minitest::Test
 
   sig { void }
   def test_part_a
-    d = T.let(Days::Day03.new, Days::Day03)
+    d = Days::Day03.new
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('03'.to_i)}")
     assert_equal 157, d.part_a
   end
 
   sig { void }
   def test_part_b
-    d = T.let(Days::Day03.new, Days::Day03)
+    d = Days::Day03.new
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('03'.to_i)}")
     assert_equal 70, d.part_b
   end
 
   sig { void }
   def test_item_prio
-    d = T.let(Days::Day03.new, Days::Day03)
+    d = Days::Day03.new
     assert_equal 16, d.item_prio("p")
     assert_equal 38, d.item_prio("L")
     assert_equal 42, d.item_prio("P")
