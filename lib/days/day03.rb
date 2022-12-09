@@ -39,14 +39,15 @@ module Days
 
       sig { params(items: String, n_comp: Integer).void }
       def initialize(items, n_comp)
-        content = items.clone
-        n_items = content.length
+        n_items = items.length
 
         raise ArgumentError, "Can't divide #{n_items} items into #{n_comp} groups" unless (n_items % n_comp).zero?
 
         comp_size = n_items / n_comp
-        @compartments = T.let([], T::Array[T::Hash[String, Integer]])
-        @compartments << parse_compartment(T.must(content.slice!(0...comp_size))) until content.empty?
+        @compartments = T.let(items.chars.each_slice(comp_size).map do |sl|
+                                parse_compartment(sl.join)
+                              end,
+                              T::Array[T::Hash[String, Integer]])
       end
 
       sig { returns(T::Hash[String, Integer]) }

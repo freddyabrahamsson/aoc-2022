@@ -16,6 +16,8 @@ module Days
     # A node in the file tree
     class FSNode
       extend T::Sig
+      extend T::Helpers
+      abstract!
 
       sig { returns(String) }
       ##
@@ -37,10 +39,8 @@ module Days
         @parent = parent
       end
 
-      sig { returns(Integer) }
-      def size
-        raise NotImplementedError
-      end
+      sig { abstract.returns(Integer) }
+      def size; end
 
       sig { returns(String) }
       ##
@@ -57,7 +57,7 @@ module Days
     ##
     # A File
     class AoCFile < FSNode
-      sig { returns(Integer) }
+      sig { override.returns(Integer) }
       attr_reader :size
 
       sig { params(name: String, size: Integer, parent: AoCDir).void }
@@ -81,7 +81,7 @@ module Days
         @content = T.let({}, T::Hash[String, FSNode])
       end
 
-      sig { returns(Integer) }
+      sig { override.returns(Integer) }
       ##
       # Get the total size of the director, including subdirectories.
       #
