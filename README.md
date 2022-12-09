@@ -7,12 +7,13 @@
   - [Setup](#setup)
   - [Running](#running)
   - [About](#about)
+  - [Dependencies](#dependencies)
 
-These are my solutions to Advent of Code[^aoc] 2022.
+Solutions to Advent of Code[^aoc] 2022.
 
 ## Setup
 
-The code uses `.ruby-version` to help manage the Ruby versioning through rbenv[^rbenv]. With rbenv installed and set up, all dependencies can be automaticall installed by running `bundle install`.
+The code uses `.ruby-version` to help manage the Ruby versioning through rbenv[^rbenv]. With rbenv installed and set up, all dependencies can be automatically installed by running `bundle install`.
 
 ## Running
 
@@ -20,17 +21,23 @@ In order to get solutions for day XX, create the directory `data/inputs` and pla
 
 ## About
 
-All solutions are written in Ruby.
+The code focuses on using different aspects of Ruby and the toolchain. Some code is certainly more explicit than it has to be in order to use a wide range of concepts and tools.
 
-- Typechecking is done via Sorbet[^sorbet], handled through Tapioca[^tapioca].
-- Testing is done via RSpec[^rspec].
-- Style is kept by Rubocop[^rubocop].
-- Docs are generated with YARD[^yard].
+## Dependencies
+
+The solutions makes use of the following third party libraries and tools.
+
+- Docs: YARD[^yard].
+- Linting: Rubocop[^rubocop].
+- Terminal IO: TTY[^tty]
+- Testing: Minitest[^minitest].
+- Typechecking: Sorbet[^sorbet], handled through Tapioca[^tapioca].
 
 [^aoc]: https://adventofcode.com
 [^sorbet]: https://sorbet.org
 [^rbenv]: https://github.com/rbenv/rbenv
-[^rspec]: https://rspec.info
+[^minitest]: https://github.com/minitest/minitest
 [^rubocop]: https://rubocop.org
 [^tapioca]: https://github.com/Shopify/tapioca
+[^tty]: https://ttytoolkit.org/
 [^yard]: https://yardoc.org/
