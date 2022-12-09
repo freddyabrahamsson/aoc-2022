@@ -34,6 +34,7 @@ Rake::TestTask.new(:test_app) do |t|
 end
 
 RuboCop::RakeTask.new(:lint) do |t|
+  t.formatters = ["simple"]
 end
 
 RuboCop::RakeTask.new(:lint_autocorrect) do |t|
