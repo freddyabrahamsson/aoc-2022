@@ -15,13 +15,13 @@ class TestDay01 < Minitest::Test
   def test_part_a
     d = T.let(Days::Day01.new, Days::Day01)
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('01'.to_i)}")
-    assert_equal d.part_a, 24_000
+    assert_equal 24_000, d.part_a
   end
 
   sig { void }
   def test_part_b
     d = T.let(Days::Day01.new, Days::Day01)
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('01'.to_i)}")
-    assert_equal d.part_b, 45_000
+    assert_equal 45_000, d.part_b
   end
 end
