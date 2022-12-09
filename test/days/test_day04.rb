@@ -24,4 +24,14 @@ class TestDay04 < Minitest::Test
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('04'.to_i)}")
     assert_equal 4, d.part_b
   end
+
+  sig { void }
+  def test_contains_all_of
+    assert (10..20).contains_all_of(10..20)
+    assert (10..20).contains_all_of(10..15)
+    assert (10..20).contains_all_of(15..20)
+    assert (10..20).contains_all_of(15..15)
+    assert (10..20).contains_all_of(10..10)
+    assert (10..20).contains_all_of(20..20)
+  end
 end
