@@ -24,7 +24,9 @@ class TestDay08 < Minitest::Test
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('08'.to_i)}")
     assert_equal 8, d.part_b
   end
+end
 
+class TestDay08 < Minitest::Test
   sig { void }
   def test_read_grid
     lines = File.readlines("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('08'.to_i)}")
@@ -95,5 +97,40 @@ class TestDay08 < Minitest::Test
 
     assert_equal 4, g.scenic_score(3, 2), "Wrong scenic score for (3,2)"
     assert_equal 8, g.scenic_score(3, 4), "Wrong scenic score for (3,4)"
+  end
+
+  sig { void }
+  def test_height_at_invalid_point
+    lines = File.readlines("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('08'.to_i)}")
+    g = Days::Day08::Grid.new(lines.map(&:chomp))
+
+    assert_raises(ArgumentError) { g.height_at(100, 100) }
+    assert_raises(ArgumentError) { g.height_at(-1, -1) }
+  end
+
+  sig { void }
+  def test_trees_in_invalid_direction
+    lines = File.readlines("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('08'.to_i)}")
+    g = Days::Day08::Grid.new(lines.map(&:chomp))
+
+    assert_raises(ArgumentError) { g.trees_in_dir(1, 1, :invalid) }
+  end
+
+  sig { returns(T.untyped) }
+  def test_row_at_outside_grid
+    lines = File.readlines("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('08'.to_i)}")
+    g = Days::Day08::Grid.new(lines.map(&:chomp))
+
+    assert_raises(ArgumentError) { g.send(:row_at, -1) }
+    assert_raises(ArgumentError) { g.send(:row_at, 100) }
+  end
+
+  sig { returns(T.untyped) }
+  def test_col_at_outside_grid
+    lines = File.readlines("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('08'.to_i)}")
+    g = Days::Day08::Grid.new(lines.map(&:chomp))
+
+    assert_raises(ArgumentError) { g.send(:col_at, -1) }
+    assert_raises(ArgumentError) { g.send(:col_at, 100) }
   end
 end

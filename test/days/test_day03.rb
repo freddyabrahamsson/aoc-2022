@@ -43,4 +43,10 @@ class TestDay03 < Minitest::Test
 
     assert_raises(ArgumentError) { Days::Day03.new.common([b1, b2]) }
   end
+
+  sig { void }
+  def test_item_prio_invalid_item
+    d = Days::Day03.new
+    assert_raises(ArgumentError) { d.item_prio("1") }
+  end
 end
