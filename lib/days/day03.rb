@@ -31,6 +31,9 @@ module Days
 
     ##
     # A bag
+    #
+    # @param items a list of items stored in the bag
+    # @param n_comp the number of compartments in the bag
     class Bag
       extend T::Sig
 

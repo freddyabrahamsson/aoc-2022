@@ -9,6 +9,8 @@ module Days
   class Day08 < Day
     ##
     # A grid
+    #
+    # @param input_lines a string representation of the grid
     class Grid
       extend T::Sig
 

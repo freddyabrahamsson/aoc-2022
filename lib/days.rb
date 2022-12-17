@@ -13,6 +13,17 @@ module Days
   extend T::Sig
 
   ##
+  # Custom error if day is not implemented.
+  class DayNotImplementedError < StandardError
+    extend T::Sig
+
+    sig { params(msg: T.nilable(T.any(String, Symbol, Exception))).void }
+    def initialize(msg = "Day not implemented.")
+      super
+    end
+  end
+
+  ##
   # Mapping between day numbers and the class implementing solutions for that day.
   IMPLEMENTED_DAYS = T.let({
     1 => Day01,
@@ -23,6 +34,9 @@ module Days
     6 => Day06,
     7 => Day07,
     8 => Day08,
-    9 => Day09
+    9 => Day09,
+    10 => Day10,
+    11 => Day11,
+    12 => Day12
   }.freeze, T::Hash[Integer, T.class_of(Day)])
 end

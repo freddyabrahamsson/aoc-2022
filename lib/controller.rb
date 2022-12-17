@@ -41,7 +41,7 @@ class Controller
     puts "Day #{@day}"
     solve_and_print_a(day_solver)
     solve_and_print_b(day_solver)
-  rescue TypeError => e
+  rescue Days::DayNotImplementedError => e
     puts "Day #{@day} is not yet implemented."
     puts e
   end
@@ -55,8 +55,10 @@ class Controller
     puts "Day #{@day}"
     solve_and_print_a(day_solver)
     solve_and_print_b(day_solver)
-  rescue TypeError
+  rescue Days::DayNotImplementedError => e
+    puts "WTF"
     puts "Day #{@day} is not yet implemented."
+    puts e
   end
 
   sig { params(day_solver: Days::Day).void }
