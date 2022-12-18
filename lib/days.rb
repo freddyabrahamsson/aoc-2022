@@ -37,6 +37,7 @@ module Days
     9 => Day09,
     10 => Day10,
     11 => Day11,
-    12 => Day12
+    12 => Day12,
+    13 => Day13
   }.freeze, T::Hash[Integer, T.class_of(Day)])
 end
