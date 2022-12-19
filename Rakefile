@@ -29,7 +29,8 @@ end
 Rake::TestTask.new(:test_app) do |t|
   t.libs << "test"
   t.libs << "lib"
-  t.test_files = FileList["test/utils/test_*.rb",
+  t.test_files = FileList["test/day_utils/test_*.rb",
+                          "test/utils/test_*.rb",
                           "test/test_controller.rb"]
 end
 

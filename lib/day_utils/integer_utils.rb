@@ -16,4 +16,9 @@ class Integer
   def divides?(other)
     (other % self).zero?
   end
+
+  sig { returns(Integer) }
+  def sgn
+    self <=> 0
+  end
 end
