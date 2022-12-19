@@ -12,6 +12,8 @@ module Days
     prop :y, Integer
   end
 
+  ##
+  # A grain of sand
   class Grain
     extend T::Sig
 
@@ -77,6 +79,8 @@ module Days
     end
   end
 
+  ##
+  # A grid
   class Grid
     extend T::Sig
 
@@ -133,9 +137,9 @@ module Days
       end
     end
 
-    sig { params(y: Integer).void }
-    def update_max_y(y)
-      @max_y = y if y > @max_y
+    sig { params(y_val: Integer).void }
+    def update_max_y(y_val)
+      @max_y = y_val if y_val > @max_y
     end
 
     sig { params(coord_a: Integer, coord_b: Integer).returns(T::Range[Integer]) }
