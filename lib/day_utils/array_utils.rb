@@ -1,24 +1,31 @@
 # typed: strict
 # frozen_string_literal:true
 
+require "sorbet-runtime"
+
 ##
 # Utilities for arrays
 class Array
   extend T::Sig
+  extend T::Generic
 
-  sig { params(split_elem: T.untyped).returns(T::Array[T.untyped]) }
+  sig do
+    type_parameters(:U)
+      .params(split_elem: T.type_parameter(:U))
+      .returns(T::Array[T.untyped])
+  end
   def split_on(split_elem)
     output = []
-    sub_arr = []
+    group = []
     each do |elem|
       if elem.eql?(split_elem)
-        output << sub_arr unless sub_arr.empty?
-        sub_arr = []
+        output << group unless group.empty?
+        group = []
       else
-        sub_arr << elem
+        group << elem
       end
     end
-    output << sub_arr unless sub_arr.empty?
+    output << group unless group.empty?
     output
   end
 end
