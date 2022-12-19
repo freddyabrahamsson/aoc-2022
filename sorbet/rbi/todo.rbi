@@ -4,9 +4,8 @@
 
 # typed: false
 
-module Rack::Request::Env; end
-module Rack::Request::Helpers; end
 module Regexp::Expression::Subexpression; end
+module RuboCop::AST::Builder; end
 module RuboCop::AST::Node; end
 module RuboCop::AST::NodePattern; end
 module RuboCop::AST::NodePattern::Macros; end
