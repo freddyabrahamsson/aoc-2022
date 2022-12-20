@@ -9,10 +9,10 @@ class Array
   extend T::Sig
   extend T::Generic
 
-  sig do
+  T::Sig::WithoutRuntime.sig do
     type_parameters(:U)
       .params(split_elem: T.type_parameter(:U))
-      .returns(T::Array[T.untyped])
+      .returns(T::Array[T::Array[Elem]])
   end
   def split_on(split_elem)
     output = []

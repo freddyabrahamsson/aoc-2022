@@ -105,7 +105,7 @@ module Days
     def part_a
       pairs = @input_lines.split_on("").map { |pair| pair.map { |l| Packet.from_str(l) } }
 
-      pairs.map.with_index(1) { |pair, x| pair[0] <= pair[1] ? x : 0 }.sum
+      pairs.map.with_index(1) { |pair, x| T.must(pair[0]) <= T.must(pair[1]) ? x : 0 }.sum
     end
 
     sig { override.returns(T.any(String, Integer)) }
