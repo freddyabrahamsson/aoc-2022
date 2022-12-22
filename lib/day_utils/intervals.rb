@@ -1,10 +1,13 @@
 # typed: strict
+# frozen_string_literal: true
 
 require "sorbet-runtime"
 
 require_relative "integer_utils"
 
 module DayUtils
+  ##
+  # Handling integer intervals
   module Intervals
     extend T::Sig
 
