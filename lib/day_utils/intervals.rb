@@ -52,7 +52,7 @@ module DayUtils
       end
     end
 
-    sig { params(intervals: T::Array[Interval]).returns(T::Array[Interval]) }
+    sig { params(intervals: T::Array[T.nilable(Interval)]).returns(T::Array[Interval]) }
     ##
     # Merge a set of intervals into the smallest number of intervals required to cover the same points.
     #
@@ -62,18 +62,19 @@ module DayUtils
       sorted = intervals.reject(&:nil?).sort
       merged = sorted.first.nil? ? [] : [sorted.first.dup]
 
-      sorted.each do |interval|
+      sorted.each do |j|
+        i = T.must(j)
         last_upper = merged.last.upper
-        if interval.lower <= last_upper + 1
-          merged.last.upper = [interval.upper, last_upper].max
+        if i.lower <= last_upper + 1
+          merged.last.upper = [i.upper, last_upper].max
         else
-          merged << interval.dup
+          merged << i.dup
         end
       end
       merged
     end
 
-    sig { params(intervals: T::Array[Interval]).returns(T::Array[Interval]) }
+    sig { params(intervals: T::Array[T.nilable(Interval)]).returns(T::Array[Interval]) }
     def self.gaps(intervals)
       merged = merge_intervals(intervals)
       return [] if merged.length < 2

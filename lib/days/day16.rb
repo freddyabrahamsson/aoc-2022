@@ -23,40 +23,46 @@ module Days
       def parse_input(line)
         raise ArgumentError, "No parse: '#{line}'" unless INPUT_LINE =~ line
 
-        store_params(T.must(Regexp.last_match))
+        name = T.must(Regexp.last_match(1)).to_sym
+        nodes[name] = Regexp.last_match(2).to_i
+        store_tunnels(name, T.must(Regexp.last_match(3)))
       end
 
       sig { params(time_limit: Integer, n_workers: Integer).returns(Integer) }
       def max_score(time_limit, n_workers)
         st = { pos: STARTING_POINT, t: time_limit, visited: [], score: 0 }
         eps = search_one_worker(time_limit, st)
-        max_by_one = eps.map { |ep| ep.fetch(:score) }.max.to_i
+        max_by_one = eps_score(eps)
 
         (n_workers - 1).times do
           eps.sort_by! { |ep| ep.fetch(:score) }.reverse!
-          max_seen = T.let(nil, T.nilable(Integer))
+          max_seen = 0
           next_eps = T.let([], T::Array[T.untyped])
           eps.each do |ep|
-            next unless max_seen.nil? || ep.fetch(:score) + max_by_one > max_seen
+            next if ep.fetch(:score) + max_by_one <= max_seen
 
             this_eps = search_one_worker(time_limit, ep)
-            this_score = this_eps.map { |this_ep| this_ep.fetch(:score) }.max.to_i
-            max_seen = max_seen.nil? ? this_score : [this_score, max_seen].max
+            max_seen = [eps_score(this_eps), max_seen].max
             next_eps += this_eps
           end
           eps = next_eps.flatten
         end
+        eps_score(eps)
+      end
+
+      sig { params(eps: T.untyped).returns(Integer) }
+      def eps_score(eps)
         eps.map { |ep| ep.fetch(:score) }.max.to_i
       end
 
       sig { void }
       def floyd_warshall
-        nodes.keys.product(nodes.keys, nodes.keys) do |k, i, j|
+        ks = nodes.keys
+        ks.product(ks, ks) do |k, i, j|
           next if i == j || i == k || [j, k].include?(STARTING_POINT)
 
           i_edges = edges.fetch(i)
-          k_edges = edges.fetch(k)
-          dist_via_k = i_edges.fetch(k, Float::INFINITY) + k_edges.fetch(j, Float::INFINITY)
+          dist_via_k = i_edges.fetch(k, Float::INFINITY) + edges.fetch(k).fetch(j, Float::INFINITY)
           direct_dist = i_edges.fetch(j, Float::INFINITY)
           i_edges[j] = direct_dist < dist_via_k ? direct_dist : dist_via_k
         end
@@ -89,11 +95,9 @@ module Days
         output
       end
 
-      sig { params(match_o: MatchData).returns(T::Hash[T.untyped, T.untyped]) }
-      def store_params(match_o)
-        name = T.must(match_o[1]).to_sym
-        nodes[name] = match_o[2].to_i
-        tunnels = T.cast(match_o[3]&.scan(VALVE_PATTERN), T::Array[String]).map(&:to_sym)
+      sig { params(name: Symbol, tunnel_str: String).void }
+      def store_tunnels(name, tunnel_str)
+        tunnels = T.cast(tunnel_str.scan(VALVE_PATTERN), T::Array[String]).map(&:to_sym)
         edges[name] = tunnels.each_with_object({}) { |t, h| h[t] = 1.0 }
       end
 

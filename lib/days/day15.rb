@@ -16,6 +16,8 @@ module Days
     end
 
     SENSOR_LINE = /Sensor at x=(\S+), y=(\S+): closest beacon is at x=(\S+), y=(\S+)/
+    PART_A_TARGET = 10 # Change to 2_000_000 if running to solve actual problem
+    PART_B_BOUND = 20 # Change to 4_000_000 if solving actual puzzle
 
     sig { params(line: T.nilable(String)).returns(Days::Day15::Coordinate) }
     def sensor_coord(line)
@@ -55,21 +57,17 @@ module Days
     #
     # @return the answer to part a, day 15.
     def part_a
-      target_y = 10 # Change to 2_000_000 if running to solve actual problem
       covered = []
       beacons = Set.new
       @input_lines.each do |line|
         s_coord = sensor_coord(line)
         b_coord = beacon_coord(line)
-        d = manhattan_distance(s_coord, b_coord)
-        covered << interval_within_man_dist(d, target_y, s_coord)
-        beacons.add(b_coord.x) if b_coord.y == target_y
+        covered << interval_within_man_dist(manhattan_distance(s_coord, b_coord), PART_A_TARGET, s_coord)
+        beacons.add(b_coord.x) if b_coord.y == PART_A_TARGET
       end
       merged = DayUtils::Intervals.merge_intervals(covered)
       total_int_size = merged.map(&:size).sum
-      beacons.each do |beacon|
-        total_int_size -= 1 if merged.any? { |i| i.contains?(beacon) }
-      end
+      beacons.each { |b| total_int_size -= 1 if merged.any? { |i| i.contains?(b) } }
       total_int_size
     end
 
@@ -79,24 +77,20 @@ module Days
     #
     # @return the answer to part B, day 15.
     def part_b
-      bound = 20 # Change to 4_000_000 if solving actual puzzle
       s_coords = []
       ds = []
       @input_lines.each do |line|
         s_coord = sensor_coord(line)
-        d = manhattan_distance(s_coord, beacon_coord(line))
         s_coords << s_coord
-        ds << d
+        ds << manhattan_distance(s_coord, beacon_coord(line))
       end
-      (0..bound).each do |y|
-        covered = s_coords.map.with_index do |s_coord, n|
-          interval_within_man_dist(ds[n], y, s_coord)
-        end
+      (0..PART_B_BOUND).each do |y|
+        covered = s_coords.zip(ds).map { |s_c, d| interval_within_man_dist(d, y, s_c) }
         gaps = DayUtils::Intervals.gaps(covered)
         next unless gaps.length == 1
 
         gap = T.must(gaps.first)
-        return gap.lower * 4_000_000 + y if (gap.lower == gap.upper) && gap.lower < bound
+        return gap.lower * 4_000_000 + y if (gap.lower == gap.upper) && gap.lower < PART_B_BOUND
       end
 
       raise ArgumentError, "No gap found"
