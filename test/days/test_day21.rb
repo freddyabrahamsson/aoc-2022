@@ -22,6 +22,6 @@ class TestDay21 < Minitest::Test
   def test_part_b
     d = Days::Day21.new
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('21'.to_i)}")
-    assert_raises(NotImplementedError) { d.part_b }
+    assert_equal 301, d.part_b
   end
 end
