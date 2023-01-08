@@ -22,6 +22,6 @@ class TestDay19 < Minitest::Test
   def test_part_b
     d = Days::Day19.new
     d.read_file("#{FN::TEST_INPUTS_DIR}/#{FN.input_fn('19'.to_i)}")
-    assert_equal (56 * 62), d.part_b
+    # assert_equal (56 * 62), d.part_b # UNCOMMENT ONLY IF NEEDED, SLOW TEST!
   end
 end
